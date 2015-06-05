@@ -130,4 +130,4 @@ When v4 or later transactions are standardized, LI01 should be examined as a can
 
 ==Acknowledgements==
 
-Danno Ferrin <danno [at] numisight> and Sergio Demian Lerner <sergiolerner [at] certimix.com> both contributed to the design and motivations for this BIP.
+Danno Ferrin &lt;danno [at] numisight&gt; and Sergio Demian Lerner &lt;sergiolerner [at] certimix.com&gt; both contributed to the design and motivations for this BIP.
