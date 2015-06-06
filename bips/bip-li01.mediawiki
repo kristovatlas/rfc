@@ -31,7 +31,7 @@ The solution is to create an algorithm for sorting transaction inputs and output
 
 Ordering of inputs will rely on the output of sorting functions. These functions can be defined as taking two inputs or two outputs as parameters and returning their appropriate ordering with respect to each other. 
 
-Hex strings must be sorted according to the following comparison algorithm:
+Hex strings must be sorted with an algorithm that produces the same output as the following comparison algorithm:
 
  <nowiki>#returns -1 if str1 is less, 1 if str1 is greater, and 0 if equal
  def string_cmp(str1, str2):
@@ -75,7 +75,7 @@ Hex strings must be sorted according to the following comparison algorithm:
         return 0
  </nowiki>
 
-Byte arrays must be sorted according to the following comparison algorithm:
+Byte arrays must be sorted with an algorithm that produces the same output as the following comparison algorithm:
 
  <nowiki>#returns -1 if barr1 is less, 1 if barr1 is greater, and 0 if equal
  def bytearr_cmp(barr1, barr2):
@@ -113,6 +113,13 @@ Transaction outputs are defined by their locking script and amount. [3] For sort
 
 For the sake of efficiency, amounts will be considered first for sorting, since they contain fewer bytes of information (7 bytes) compared to a standard P2PKH locking script (800 bytes). [4] When the values are tied the locking script is then considered. In the event of a tie between locking scripts, sorting is irrelevant since the outputs are exactly equivalent.
 
+===Handling Input/Output Dependencies===
+
+Some uncommon forms of transactions create an ordering dependency between inputs and outputs of a transaction. Wallets forming these transactions should first sort inputs according to the methodology outlined in section “Transaction Inputs” of this BIP. Then, they should fix the output indices that depend on the input order, and sort the remaining outputs around them. If there are no outputs that do not depend on input order, then all outputs will simply be ordered based on the expected scheme. The following are the known cases of input/output dependency that must be handled specially:
+
+* SIGHASH_SINGLE hash type. [5] Clients seeking to verify LI01 compliance for a transaction must inspect the last byte of the scriptSig of each input to determine the signature hash type. In the case of SIGHASH_SINGLE (0x03) for input “n”, the verifier should expect  that output “n” will be fixed when considering output ordering.
+
+
 ==Backwards Compatibility==
 
 The use of LI01 transactions does not require a hard adjustment to the core bitcoin consensus protocol.  Individual wallets and services can integrate LI01 ordering into their products without any impact on any other participant in the bitcoin network.
@@ -127,7 +134,8 @@ When v4 or later transactions are standardized, LI01 should be examined as a can
 * [[https://github.com/OpenBitcoinPrivacyProject/wallet-ratings/blob/master/2015-1/criteria.md|2: OBPP Random Indexing as Countermeasure]]
 * [[https://github.com/aantonop/bitcoinbook/blob/develop/ch05.asciidoc|3: Mastering Bitcoin]]
 * [[https://en.bitcoin.it/wiki/Script|4: Bitcoin Wiki on Script]]
+* [[https://en.bitcoin.it/wiki/OP_CHECKSIG#Procedure_for_Hashtype_SIGHASH_SINGLE|5: Bitcoin Wiki on SIGHASH_SINGLE]]
 
 ==Acknowledgements==
 
-Danno Ferrin &lt;danno [at] numisight.com&gt; and Sergio Demian Lerner &lt;sergiolerner [at] certimix.com&gt; both contributed to the design and motivations for this BIP.
+Danno Ferrin &lt;danno [at] numisight.com&gt;, Sergio Demian Lerner &lt;sergiolerner [at] certimix.com&gt;, and Justus Ranvier &lt;justus [at] openbitcoinprivacyproject.org &gt; contributed to the design and motivations for this BIP.
