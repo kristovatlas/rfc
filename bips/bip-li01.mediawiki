@@ -4,7 +4,7 @@
   Authors: Kristov Atlas <kristov [at] openbitcoinprivacyproject.org>
   Status:  Draft
   Type:    Informational
-  Created: 2015-06-05
+  Created: 2015-06-08
 </pre>
 
 ==Abstract==
@@ -23,9 +23,13 @@ One way to address these privacy weaknesses is by randomly ordering inputs and o
 
 The lack of standardization between wallet clients when ordering inputs and outputs can yield predictable quirks that characterize particular wallet clients or services. Such quirks create unique fingerprints that a privacy attacker can employ through simple passive blockchain observation.
 
-The solution is to create an algorithm for sorting transaction inputs and outputs that is deterministic. Since it is deterministic, it should also be unambiguous -- that is, given a particular transaction, the proper order of inputs and outputs should be obvious. To make this standard as widely applicable as possible, it should rely on information that is downloaded by both full nodes (with or without typical efficiency techniques such as pruning) and SPV nodes. In order to ensure that it does not leak confidential data, it must rely on information that is publicly accessible through the blockchain. The use of public blockchain information also allows a transaction to be sorted even when it is a multi-party transaction, such as in the example of a CoinJoin.
+The solution is to create an algorithm for sorting transaction inputs and outputs that is deterministic. Since it is deterministic, it should also be unambiguous — that is, given a particular transaction, the proper order of inputs and outputs should be obvious. To make this standard as widely applicable as possible, it should rely on information that is downloaded by both full nodes (with or without typical efficiency techniques such as pruning) and SPV nodes. In order to ensure that it does not leak confidential data, it must rely on information that is publicly accessible through the blockchain. The use of public blockchain information also allows a transaction to be sorted even when it is a multi-party transaction, such as in the example of a CoinJoin.
 
 ==Specification==
+
+===Applicability===
+
+This BIP applies to all transactions of signature hash type SIGHASH_ALL. Additionally,  software compliant with this BIP that allows later parties to update the transaction (e.g. using signature hash types SIGHASH_NONE or a variant of SIGHASH_ANYONECANPAY) should emit lexicographically sorted inputs and outputs, although they may later be modified. Transactions that have index dependencies between transactions or within the same transaction are covered under the section of this BIP entitled “Handling Input/Output Dependencies.”
 
 ===Lexicographical Sorting===
 
@@ -99,7 +103,7 @@ N.B. These comparison algorithms do not need to operate in constant time since t
 
 ===Transaction Inputs===
 
-Transaction inputs are defined by the hash of a previous transaction, the output index of of a UTXO from that previous transaction, the size of an unlocking script, the unlocking script, and a sequence number currently set to 0xFFFFFFFF. [3] For sorting inputs, the hash of the previous transaction and the output index within that transaction are sufficient for sorting purposes; each transaction hash has an extremely high probability of being unique in the blockchain -- this is enforced for coinbase transactions by BIP30 -- and output indices within a transaction are unique. For the sake of efficiency, transaction hashes should be compared first before output indices, since output indices from different transactions are often equivalent, while all bytes of the transaction hash are effectively random variables.
+104	Transaction inputs are defined by the hash of a previous transaction, the output index of of a UTXO from that previous transaction, the size of an unlocking script, the unlocking script, and a sequence number. [3] For sorting inputs, the hash of the previous transaction and the output index within that transaction are sufficient for sorting purposes; each transaction hash has an extremely high probability of being unique in the blockchain — this is enforced for coinbase transactions by BIP30 — and output indices within a transaction are unique. For the sake of efficiency, transaction hashes should be compared first before output indices, since output indices from different transactions are often equivalent, while all bytes of the transaction hash are effectively random variables.
 
 Hashes of previous transactions must be sorted according to the string_cmp() function above. In the event of a tie between two transaction hashes, output indices will be compared based on their integer value. A further tie is extremely improbable for the aforementioned reasons.
 
@@ -119,14 +123,52 @@ Some uncommon forms of transactions create an ordering dependency between inputs
 
 * SIGHASH_SINGLE hash type. [5] Clients seeking to verify LI01 compliance for a transaction must inspect the last byte of the scriptSig of each input to determine the signature hash type. In the case of SIGHASH_SINGLE (0x03) for input “n”, the verifier should expect  that output “n” will be fixed when considering output ordering.
 
+===Examples===
+
+Transaction 0a6a357e2f7796444e02638749d9611c008b253fb55f5dc88b739b230ed0c4c3:
+
+Inputs:
+
+0: 0e53ec5dfb2cb8a71fec32dc9a634a35b7e24799295ddd5278217822e0b31f57[0]
+1: 26aa6e6d8b9e49bb0630aac301db6757c02e3619feb4ee0eea81eb1672947024[1]
+2: 28e0fdd185542f2c6ea19030b0796051e7772b6026dd5ddccd7a2f93b73e6fc2[0]
+3: 381de9b9ae1a94d9c17f6a08ef9d341a5ce29e2e60c36a52d333ff6203e58d5d[1]
+4: 3b8b2f8efceb60ba78ca8bba206a137f14cb5ea4035e761ee204302d46b98de2[0]
+5: 402b2c02411720bf409eff60d05adad684f135838962823f3614cc657dd7bc0a[1]
+6: 54ffff182965ed0957dba1239c27164ace5a73c9b62a660c74b7b7f15ff61e7a[1]
+7: 643e5f4e66373a57251fb173151e838ccd27d279aca882997e005016bb53d5aa[0]
+8: 6c1d56f31b2de4bfc6aaea28396b333102b1f600da9c6d6149e96ca43f1102b1[1]
+9: 7a1de137cbafb5c70405455c49c5104ca3057a1f1243e6563bb9245c9c88c191[0]
+10: 7d037ceb2ee0dc03e82f17be7935d238b35d1deabf953a892a4507bfbeeb3ba4[1]
+11: a5e899dddb28776ea9ddac0a502316d53a4a3fca607c72f66c470e0412e34086[0]
+12: b4112b8f900a7ca0c8b0e7c4dfad35c6be5f6be46b3458974988e1cdb2fa61b8[0]
+13: bafd65e3c7f3f9fdfdc1ddb026131b278c3be1af90a4a6ffa78c4658f9ec0c85[0]
+14: de0411a1e97484a2804ff1dbde260ac19de841bebad1880c782941aca883b4e9[1]
+15: f0a130a84912d03c1d284974f563c5949ac13f8342b8112edff52971599e6a45[0]
+16: f320832a9d2e2452af63154bc687493484a0e7745ebd3aaf9ca19eb80834ad60[0]
+
+Outputs:
+
+0:    400057456    76a9144a5fba237213a062f6f57978f796390bdcf8d01588ac
+1:    40000000000    76a9145be32612930b8323add2212a4ec03c1562084f8488ac
+
+Transaction 28204cad1d7fc1d199e8ef4fa22f182de6258a3eaafe1bbe56ebdcacd3069a5f
+
+Inputs:
+
+0: 35288d269cee1941eaebb2ea85e32b42cdb2b04284a56d8b14dcc3f5c65d6055[0]
+1: 35288d269cee1941eaebb2ea85e32b42cdb2b04284a56d8b14dcc3f5c65d6055[1]
+
+Outputs:
+
+0:    100000000    41046a0765b5865641ce08dd39690aade26dfbf5511430ca428a3089261361cef170e3929a68aee3d8d4848b0c5111b0a37b82b86ad559fd2a745b44d8e8d9dfdc0cac
+1:    2400000000    41044a656f065871a353f216ca26cef8dde2f03e8c16202d2e8ad769f02032cb86a5eb5e56842e92e19141d60a01928f8dd2c875a390f67c1f6c94cfc617c0ea45afac
 
 ==Backwards Compatibility==
 
 The use of LI01 transactions does not require a hard adjustment to the core bitcoin consensus protocol.  Individual wallets and services can integrate LI01 ordering into their products without any impact on any other participant in the bitcoin network.
 
 Wallets, services, and miners may want to become aware of the deterministic ordering and provide that information as part of their display of blockchain information. Miners may also prefer to include LI01 compliant transactions into a block, or as an additional preference rule when confronted with conflicting transaction spends (such as replace by fee or a double spend attack).
-
-When v4 or later transactions are standardized, LI01 should be examined as a candidate for standardization.
 
 ==References==
 
