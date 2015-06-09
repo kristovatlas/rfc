@@ -37,7 +37,7 @@ Ordering of inputs will rely on the output of sorting functions. These functions
 
 Hex strings must be sorted with an algorithm that produces the same output as the following comparison algorithm:
 
- <nowiki>#returns -1 if str1 is less, 1 if str1 is greater, and 0 if equal
+ <nowiki>#returns -1 if str1 is lesser, 1 if str1 is greater, and 0 if equal
  def string_cmp(str1, str2):
     pos = 0
     while (pos < len(str1) and pos < len(str2)):
@@ -81,7 +81,7 @@ Hex strings must be sorted with an algorithm that produces the same output as th
 
 Byte arrays must be sorted with an algorithm that produces the same output as the following comparison algorithm:
 
- <nowiki>#returns -1 if barr1 is less, 1 if barr1 is greater, and 0 if equal
+ <nowiki>#returns -1 if barr1 is lesser, 1 if barr1 is greater, and 0 if equal
  def bytearr_cmp(barr1, barr2):
     pos = 0
     while (pos < len(barr1) and pos < len(barr2)):
