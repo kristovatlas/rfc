@@ -41,7 +41,7 @@ Ordering of inputs will rely on the output of sorting functions. These functions
 
 Hex strings must be sorted with an algorithm that produces the same output as the following comparison algorithm:
 
- <nowiki>#returns -1 if str1 is less, 1 if str1 is greater, and 0 if equal
+ <nowiki>#returns -1 if str1 is lesser, 1 if str1 is greater, and 0 if equal
  def string_cmp(str1, str2):
     pos = 0
     while (pos < len(str1) and pos < len(str2)):
@@ -85,7 +85,7 @@ Hex strings must be sorted with an algorithm that produces the same output as th
 
 Byte arrays must be sorted with an algorithm that produces the same output as the following comparison algorithm:
 
- <nowiki>#returns -1 if barr1 is less, 1 if barr1 is greater, and 0 if equal
+ <nowiki>#returns -1 if barr1 is lesser, 1 if barr1 is greater, and 0 if equal
  def bytearr_cmp(barr1, barr2):
     pos = 0
     while (pos < len(barr1) and pos < len(barr2)):
@@ -177,4 +177,8 @@ Wallets, services, and miners may want to become aware of the deterministic orde
 
 ==Acknowledgements==
 
+<<<<<<< HEAD
 Danno Ferrin &lt;danno [at] numisight.com&gt;, Sergio Demian Lerner &lt;sergiolerner [at] certimix.com&gt;, Justus Ranvier &lt;justus [at] openbitcoinprivacyproject.org&gt;, and Peter Todd &lt;pete [at] petertodd.org&gt; contributed to the design and motivations for this BIP.
+=======
+Danno Ferrin &lt;danno [at] numisight.com&gt;, Sergio Demian Lerner &lt;sergiolerner [at] certimix.com&gt;, and Justus Ranvier &lt;justus [at] openbitcoinprivacyproject.org &gt; contributed to the design and motivations for this BIP.
+>>>>>>> origin/master
