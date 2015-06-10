@@ -4,7 +4,7 @@
   Authors: Kristov Atlas <kristov [at] openbitcoinprivacyproject.org>
   Status:  Draft
   Type:    Informational
-  Created: 2015-06-09
+  Created: 2015-06-10
 </pre>
 
 ==Abstract==
@@ -161,12 +161,6 @@ Outputs:
 
 0:    100000000    41046a0765b5865641ce08dd39690aade26dfbf5511430ca428a3089261361cef170e3929a68aee3d8d4848b0c5111b0a37b82b86ad559fd2a745b44d8e8d9dfdc0cac
 1:    2400000000    41044a656f065871a353f216ca26cef8dde2f03e8c16202d2e8ad769f02032cb86a5eb5e56842e92e19141d60a01928f8dd2c875a390f67c1f6c94cfc617c0ea45afac
-
-==Backwards Compatibility==
-
-The use of LI01 transactions does not require a hard adjustment to the core bitcoin consensus protocol.  Individual wallets and services can integrate LI01 ordering into their products without any impact on any other participant in the bitcoin network.
-
-Wallets, services, and miners may want to become aware of the deterministic ordering and provide that information as part of their display of blockchain information. Miners may also prefer to include LI01 compliant transactions into a block, or as an additional preference rule when confronted with conflicting transaction spends (such as replace by fee or a double spend attack).
 
 ==References==
 
