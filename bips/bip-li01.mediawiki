@@ -119,7 +119,7 @@ Transaction malleability will not negatively impact the correctness of this proc
 
 Transaction outputs are defined by their locking script and amount. [3] For sorting purposes, we will consider a locking script in its raw, little-endian byte array representation, and a bitcoin amount in terms of unsigned, 8-byte integer number of satoshis.
 
-For the sake of efficiency, amounts will be considered first for sorting, since they contain fewer bytes of information (7 bytes) compared to a standard P2PKH locking script (800 bytes). [4] When the values are tied the locking script is then considered. In the event of a tie between locking scripts, sorting is irrelevant since the outputs are exactly equivalent.
+For the sake of efficiency, amounts will be considered first for sorting, since they contain fewer bytes of information (8 bytes) compared to a standard P2PKH locking script (25 bytes). [4] When the values are tied the locking script is then considered. In the event of a tie between locking scripts, sorting is irrelevant since the outputs are exactly equivalent.
 
 ===Examples===
 
