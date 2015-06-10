@@ -9,7 +9,7 @@
 
 ==Abstract==
 
-Currently there is no standard for bitcoin wallet clients when ordering transaction inputs and outputs. As a result, wallet clients often have a discernible blockchain fingerprint, and can leak private information about their users. By contrast, a standard for non-deterministic sorting could be difficult to audit. This document proposes deterministic lexicographical sorting, using hashes of previous transactions and output indices to sort transaction inputs, as well as value and locking scripts to sort transaction outputs.
+Currently there is no standard for bitcoin wallet clients when ordering transaction inputs and outputs. As a result, wallet clients often have a discernible blockchain fingerprint, and can leak private information about their users. By contrast, a standard for non-deterministic sorting could be difficult to audit. This document proposes deterministic lexicographical sorting, using hashes of previous transactions and output indices to sort transaction inputs, as well as values and scriptPubKeys to sort transaction outputs.
 
 ==Copyright==
 
@@ -117,9 +117,9 @@ Transaction malleability will not negatively impact the correctness of this proc
 
 ===Transaction Outputs===
 
-Transaction outputs are defined by their locking script and amount. [3] For sorting purposes, we will consider a locking script in its raw, little-endian byte array representation, and a bitcoin amount in terms of unsigned, 8-byte integer number of satoshis.
+A transaction output is defined by its scriptPubKey and amount. [3] For sorting purposes, we will consider a scriptPubKey in its byte array representation, and a bitcoin amount in terms of their integer number of satoshis (smallest amount ordered first).
 
-For the sake of efficiency, amounts will be considered first for sorting, since they contain fewer bytes of information (8 bytes) compared to a standard P2PKH locking script (25 bytes). [4] When the values are tied the locking script is then considered. In the event of a tie between locking scripts, sorting is irrelevant since the outputs are exactly equivalent.
+For the sake of efficiency, amounts will be considered first for sorting, since they contain fewer bytes of information (8 bytes) compared to a standard P2PKH scriptPubKey (25 bytes). [4] When the values are tied, the scriptPubKey is then considered. In the event of a tie between scriptPubKeys, sorting is irrelevant since the outputs are exactly equivalent.
 
 ===Examples===
 
