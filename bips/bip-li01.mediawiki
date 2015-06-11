@@ -126,4 +126,4 @@ Outputs:
 
 ==Acknowledgements==
 
-Danno Ferrin &lt;danno [at] numisight.com&gt;, Sergio Demian Lerner &lt;sergiolerner [at] certimix.com&gt;, Justus Ranvier &lt;justus [at] openbitcoinprivacyproject.org&gt;, and Peter Todd &lt;pete [at] petertodd.org&gt; contributed to the design and motivations for this BIP.
+Danno Ferrin &lt;danno@numisight.com&gt;, Sergio Demian Lerner &lt;sergiolerner@certimix.com&gt;, Justus Ranvier &lt;justus@openbitcoinprivacyproject.org&gt;, and Peter Todd &lt;pete@petertodd.org&gt; contributed to the design and motivations for this BIP.
