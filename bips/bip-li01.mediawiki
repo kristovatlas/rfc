@@ -41,8 +41,7 @@ Ordering of inputs and outputs will rely on the output of sorting functions. The
 
 Byte arrays must be sorted with an algorithm that produces the same output as the following comparison algorithm:
 
- <nowiki>
- #returns -1 if barr1 is lesser, 1 if barr1 is greater, and 0 if equal
+ <nowiki>#returns -1 if barr1 is lesser, 1 if barr1 is greater, and 0 if equal
  def bytearr_cmp(barr1, barr2):
     pos = 0
     while (pos < len(barr1) and pos < len(barr2)):
@@ -57,8 +56,7 @@ Byte arrays must be sorted with an algorithm that produces the same output as th
     elif (len(barr1) > len(barr2)):
         return 1
     else:
-        return 0
- </nowiki>
+        return 0</nowiki>
 
 N.B. These comparisons do not need to operate in constant time since they are not processing secret information.
 
@@ -84,8 +82,7 @@ Transaction 0a6a357e2f7796444e02638749d9611c008b253fb55f5dc88b739b230ed0c4c3:
 
 Inputs:
 
- <nowiki>
- 0: 0e53ec5dfb2cb8a71fec32dc9a634a35b7e24799295ddd5278217822e0b31f57[0]
+ <nowiki>0: 0e53ec5dfb2cb8a71fec32dc9a634a35b7e24799295ddd5278217822e0b31f57[0]
  1: 26aa6e6d8b9e49bb0630aac301db6757c02e3619feb4ee0eea81eb1672947024[1]
  2: 28e0fdd185542f2c6ea19030b0796051e7772b6026dd5ddccd7a2f93b73e6fc2[0]
  3: 381de9b9ae1a94d9c17f6a08ef9d341a5ce29e2e60c36a52d333ff6203e58d5d[1]
@@ -101,31 +98,24 @@ Inputs:
  13: bafd65e3c7f3f9fdfdc1ddb026131b278c3be1af90a4a6ffa78c4658f9ec0c85[0]
  14: de0411a1e97484a2804ff1dbde260ac19de841bebad1880c782941aca883b4e9[1]
  15: f0a130a84912d03c1d284974f563c5949ac13f8342b8112edff52971599e6a45[0]
- 16: f320832a9d2e2452af63154bc687493484a0e7745ebd3aaf9ca19eb80834ad60[0]
- </nowiki>
+ 16: f320832a9d2e2452af63154bc687493484a0e7745ebd3aaf9ca19eb80834ad60[0]</nowiki>
 
 Outputs:
 
- <nowiki>
- 0:    400057456    76a9144a5fba237213a062f6f57978f796390bdcf8d01588ac
- 1:    40000000000    76a9145be32612930b8323add2212a4ec03c1562084f8488ac
- </nowiki>
+ <nowiki>0:    400057456    76a9144a5fba237213a062f6f57978f796390bdcf8d01588ac
+ 1:    40000000000    76a9145be32612930b8323add2212a4ec03c1562084f8488ac</nowiki>
 
 Transaction 28204cad1d7fc1d199e8ef4fa22f182de6258a3eaafe1bbe56ebdcacd3069a5f
 
 Inputs:
 
- <nowiki>
- 0: 35288d269cee1941eaebb2ea85e32b42cdb2b04284a56d8b14dcc3f5c65d6055[0]
- 1: 35288d269cee1941eaebb2ea85e32b42cdb2b04284a56d8b14dcc3f5c65d6055[1]
- </nowiki>
+ <nowiki>0: 35288d269cee1941eaebb2ea85e32b42cdb2b04284a56d8b14dcc3f5c65d6055[0]
+ 1: 35288d269cee1941eaebb2ea85e32b42cdb2b04284a56d8b14dcc3f5c65d6055[1]</nowiki>
 
 Outputs:
 
- <nowiki>
- 0:    100000000    41046a0765b5865641ce08dd39690aade26dfbf5511430ca428a3089261361cef170e3929a68aee3d8d4848b0c5111b0a37b82b86ad559fd2a745b44d8e8d9dfdc0cac
- 1:    2400000000    41044a656f065871a353f216ca26cef8dde2f03e8c16202d2e8ad769f02032cb86a5eb5e56842e92e19141d60a01928f8dd2c875a390f67c1f6c94cfc617c0ea45afac
- </nowiki>
+ <nowiki>0:    100000000    41046a0765b5865641ce08dd39690aade26dfbf5511430ca428a3089261361cef170e3929a68aee3d8d4848b0c5111b0a37b82b86ad559fd2a745b44d8e8d9dfdc0cac
+ 1:    2400000000    41044a656f065871a353f216ca26cef8dde2f03e8c16202d2e8ad769f02032cb86a5eb5e56842e92e19141d60a01928f8dd2c875a390f67c1f6c94cfc617c0ea45afac</nowiki>
 
 ==References==
 
